@@ -1,12 +1,12 @@
-import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from '@apollo/server/express4';
-import express from 'express';
-import http from 'http';
-import cors from 'cors';
-import bodyParser from 'body-parser';
 import { typeDefs } from './schema.js';
 import { resolvers } from './resolver.js';
+import { ApolloServer } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
 import { CatalogueDataSource } from './datasource/catalogue.js';
+
+import cors from 'cors';
+import express from 'express';
+import bodyParser from 'body-parser';
 
 const app = express();
 
