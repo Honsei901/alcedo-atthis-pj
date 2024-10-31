@@ -6,10 +6,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { typeDefs } from './schema.js';
 import { resolvers } from './resolver.js';
+import { CatalogueDataSource } from './datasource/catalogue.js';
 
 const app = express();
-
-const httpServer = http.createServer(app);
 
 const server = new ApolloServer({
   typeDefs,
@@ -18,8 +17,21 @@ const server = new ApolloServer({
 
 await server.start();
 
-app.use('/graphql', cors(), bodyParser.json(), expressMiddleware(server));
+app.use(
+  '/graphql',
+  cors(),
+  bodyParser.json(),
+  expressMiddleware(server, {
+    context: async ({ req }) => {
+      return {
+        dataSources: {
+          catalogueApi: new CatalogueDataSource(),
+        },
+      };
+    },
+  })
+);
 
 app.listen(4000);
 
-console.log('Server ready at http://localhost:4000/graphql');
+console.log(`🚀 Server ready at http://localhost:4000/graphql`);
