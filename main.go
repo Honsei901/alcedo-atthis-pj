@@ -29,6 +29,7 @@ var (
 		Author: "Kate Chopin",
 		Price:  1000,
 	}
+
 	book2 = Book{
 		Id:     2,
 		Title:  "City of Glass",
